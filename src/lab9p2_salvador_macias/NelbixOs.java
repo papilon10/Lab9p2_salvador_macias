@@ -4,7 +4,10 @@
  */
 package lab9p2_salvador_macias;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -117,7 +120,7 @@ public class NelbixOs extends javax.swing.JFrame {
         } else if (txt_comandos.getText().equals("ls")) {
             File raiz = new File("'/Users/Apple/NetBeansProjects/Lab9p2_salvador_macias/nelbix_root:.'");
             File[] archivos = raiz.listFiles((dir, nombre) -> nombre.toLowerCase().endsWith(".txt"));
-            if (archivos.length == 0 ) {
+            if (archivos.length == 0) {
 
                 jTextArea1.setText("(no hay archivos)");
 
@@ -137,9 +140,49 @@ public class NelbixOs extends javax.swing.JFrame {
             }
 
         } else if (txt_comandos.getText().contains("cat")) {
-            jTextArea1.setText("auxilio");
+            String seleccionado = txt_NombreArchivo.getText();
+            File raiz = new File("'/Users/Apple/NetBeansProjects/Lab9p2_salvador_macias/nelbix_root:.'");
+            File[] archivos = raiz.listFiles((dir, nombre) -> nombre.toLowerCase().endsWith(".txt"));
+            /*for (File archivo : archivos) {
+                if (archivo.getName().equals(seleccionado)) {
+                    try (BufferedReader br = new BufferedReader(new FileReader(seleccionado))) {
+                        jTextArea1.setText("");
+                        String linea;
+                        while ((linea = br.readLine()) != null) {
+                            jTextArea1.append(linea + "\n");
+                        }
+                    } catch (IOException ex) {
+                        jTextArea1.setText("Error al leer el archivo: " + ex.getMessage());
+                    }
+                } else {
+                    jTextArea1.setText("el archivo ingresado no existe");
+                }
 
+            }*/
+            for (File archivo : archivos) {
+                if (archivo.getName().equals(seleccionado)) {
+                    try {
+
+                        BufferedReader br = new BufferedReader(new FileReader(seleccionado));
+                        String linea = br.readLine();
+
+                        while (linea != null) {
+
+                            jTextArea1.append(linea + "\n");
+
+                            linea = br.readLine();
+
+                        }
+
+                    } catch (FileNotFoundException ex) {
+                    } catch (IOException ex) {
+                        Logger.getLogger(NelbixOs.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            // jTextArea1.setText("auxilio");
         } else if (txt_comandos.getText().contains("echo")) {
+
             jTextArea1.setText("texto sobrescrito");
 
         } else if (txt_comandos.getText().contains(">>>")) {
