@@ -146,22 +146,7 @@ public class NelbixOs extends javax.swing.JFrame {
             String seleccionado = txt_NombreArchivo.getText();
             File raiz = new File("/Users/Apple/NetBeansProjects/Lab9p2_salvador_macias");
             File[] archivos = raiz.listFiles((dir, nombre) -> nombre.toLowerCase().endsWith(".txt"));
-            /*for (File archivo : archivos) {
-                if (archivo.getName().equals(seleccionado)) {
-                    try (BufferedReader br = new BufferedReader(new FileReader(seleccionado))) {
-                        jTextArea1.setText("");
-                        String linea;
-                        while ((linea = br.readLine()) != null) {
-                            jTextArea1.append(linea + "\n");
-                        }
-                    } catch (IOException ex) {
-                        jTextArea1.setText("Error al leer el archivo: " + ex.getMessage());
-                    }
-                } else {
-                    jTextArea1.setText("el archivo ingresado no existe");
-                }
-
-            }*/
+           
             for (File archivo : archivos) {
                 if (archivo.getName().equals(seleccionado)) {
                     try {
@@ -201,7 +186,9 @@ public class NelbixOs extends javax.swing.JFrame {
                     }
                     String nuevaInfo = jTextArea1.getText();
                     try {
-                        br.write("\n");
+                        //jTextArea1.setText("");
+                        
+                        br.write(""+ "\n" + txt_comandos.getText());
                     } catch (IOException ex) {
                         Logger.getLogger(NelbixOs.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -231,9 +218,9 @@ public class NelbixOs extends javax.swing.JFrame {
                     } catch (IOException ex) {
                         Logger.getLogger(NelbixOs.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    String nuevaInfo = jTextArea1.getText();
+                    String nuevaInfo = txt_comandos.getText();
                     try {
-                        br.write("\n" + nuevaInfo);
+                        br.write(txt_comandos.getText()+"\n");
                     } catch (IOException ex) {
                         Logger.getLogger(NelbixOs.class.getName()).log(Level.SEVERE, null, ex);
                     }
