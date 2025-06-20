@@ -1,3 +1,0 @@
-
-echo>>> texto agregado
-echo auxilio
