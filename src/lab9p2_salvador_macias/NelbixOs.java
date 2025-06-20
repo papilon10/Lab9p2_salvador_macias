@@ -178,12 +178,23 @@ public class NelbixOs extends javax.swing.JFrame {
                     } catch (IOException ex) {
                         Logger.getLogger(NelbixOs.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                } else {
+                    jTextArea1.setText("el archivo no existe");
                 }
             }
             // jTextArea1.setText("auxilio");
         } else if (txt_comandos.getText().contains("echo")) {
 
             jTextArea1.setText("texto sobrescrito");
+            String seleccionado = txt_NombreArchivo.getText();
+            File raiz = new File("'/Users/Apple/NetBeansProjects/Lab9p2_salvador_macias/nelbix_root:.'");
+            File[] archivos = raiz.listFiles((dir, nombre) -> nombre.toLowerCase().endsWith(".txt"));
+            for (File archivo : archivos) {
+                if (archivo.getName().equals(seleccionado)) {
+
+                }
+
+            }
 
         } else if (txt_comandos.getText().contains(">>>")) {
             jTextArea1.setText("texto agregado");
@@ -194,7 +205,7 @@ public class NelbixOs extends javax.swing.JFrame {
             jTextArea1.setText("");
 
         } else {
-            JOptionPane.showMessageDialog(this, "el comando ingresado no es valido", "error", HEIGHT);
+            jTextArea1.setText("el comando ingresado no es valido");
         }
 
         // TODO add your handling code here:
