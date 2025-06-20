@@ -4,6 +4,13 @@
  */
 package lab9p2_salvador_macias;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.text.BadLocationException;
+
 /**
  *
  * @author Apple
@@ -13,9 +20,11 @@ public class NelbixOs extends javax.swing.JFrame {
     /**
      * Creates new form NelbixOs
      */
-    public NelbixOs() {
+    public NelbixOs() throws IOException {
         initComponents();
         jTextArea1.setEditable(false);
+        //   File file = new File("'/Users/Apple/NetBeansProjects/Lab9p2_salvador_macias/nelbix_root:.'", "nelbix_root/.");
+        // file.createNewFile();
     }
 
     /**
@@ -32,6 +41,8 @@ public class NelbixOs extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jla = new javax.swing.JLabel();
         txt_comandos = new javax.swing.JTextField();
+        jla1 = new javax.swing.JLabel();
+        txt_NombreArchivo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,18 +64,31 @@ public class NelbixOs extends javax.swing.JFrame {
             }
         });
 
+        jla1.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        jla1.setText("Nombre de archivo: ");
+
+        txt_NombreArchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_NombreArchivoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 864, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jla, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_comandos)
-                .addContainerGap())
+                .addComponent(txt_comandos, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addComponent(jla1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txt_NombreArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -76,7 +100,10 @@ public class NelbixOs extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txt_comandos)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt_comandos)
+                            .addComponent(jla1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txt_NombreArchivo))
                         .addContainerGap())))
         );
 
@@ -84,14 +111,55 @@ public class NelbixOs extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_comandosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_comandosActionPerformed
-        if (txt_comandos.getText().equals("clear")) {
-            jTextArea1.setText("");
-        }else if(txt_comandos.getText().equals("exit")){
+
+        if (txt_comandos.getText().equals("exit")) {
             System.exit(0);
+        } else if (txt_comandos.getText().equals("ls")) {
+            File raiz = new File("'/Users/Apple/NetBeansProjects/Lab9p2_salvador_macias/nelbix_root:.'");
+            File[] archivos = raiz.listFiles((dir, nombre) -> nombre.toLowerCase().endsWith(".txt"));
+            if (archivos.length == 0 ) {
+
+                jTextArea1.setText("(no hay archivos)");
+
+            } else {
+                for (File archivo : archivos) {
+                    jTextArea1.append(archivo.getName() + "\n");
+
+                }
+            }
+        } else if (txt_comandos.getText().contains("touch")) {
+            File nuevo = new File("'/Users/Apple/NetBeansProjects/Lab9p2_salvador_macias/nelbix_root:.'", txt_NombreArchivo.getText());
+            try {
+                nuevo.createNewFile();
+                jTextArea1.setText("archivo " + txt_NombreArchivo.getText() + " creado");
+            } catch (IOException ex) {
+                Logger.getLogger(NelbixOs.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else if (txt_comandos.getText().contains("cat")) {
+            jTextArea1.setText("auxilio");
+
+        } else if (txt_comandos.getText().contains("echo")) {
+            jTextArea1.setText("texto sobrescrito");
+
+        } else if (txt_comandos.getText().contains(">>>")) {
+            jTextArea1.setText("texto agregado");
+
+        } else if (txt_comandos.getText().equals("rm")) {
+            jTextArea1.setText("archivo eliminado");
+        } else if (txt_comandos.getText().equals("clear")) {
+            jTextArea1.setText("");
+
+        } else {
+            JOptionPane.showMessageDialog(this, "el comando ingresado no es valido", "error", HEIGHT);
         }
 
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_comandosActionPerformed
+
+    private void txt_NombreArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_NombreArchivoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_NombreArchivoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -123,7 +191,11 @@ public class NelbixOs extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NelbixOs().setVisible(true);
+                try {
+                    new NelbixOs().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(NelbixOs.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -133,6 +205,8 @@ public class NelbixOs extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel jla;
+    private javax.swing.JLabel jla1;
+    private javax.swing.JTextField txt_NombreArchivo;
     private javax.swing.JTextField txt_comandos;
     // End of variables declaration//GEN-END:variables
 }
