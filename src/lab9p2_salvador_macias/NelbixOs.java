@@ -120,20 +120,21 @@ public class NelbixOs extends javax.swing.JFrame {
         if (txt_comandos.getText().equals("exit")) {
             System.exit(0);
         } else if (txt_comandos.getText().equals("ls")) {
-            File raiz = new File("'/Users/Apple/NetBeansProjects/Lab9p2_salvador_macias/nelbix_root:.'");
+            System.out.println("a");
+            File raiz = new File("/Users/Apple/NetBeansProjects/Lab9p2_salvador_macias");
             File[] archivos = raiz.listFiles((dir, nombre) -> nombre.toLowerCase().endsWith(".txt"));
-            if (archivos.length == 0) {
+            if (archivos.length==0) {
 
                 jTextArea1.setText("(no hay archivos)");
 
             } else {
                 for (File archivo : archivos) {
-                    jTextArea1.append(archivo.getName() + "\n");
+                    jTextArea1.append("\n"+archivo.getName() + "\n");
 
                 }
             }
         } else if (txt_comandos.getText().contains("touch")) {
-            File nuevo = new File("'/Users/Apple/NetBeansProjects/Lab9p2_salvador_macias/nelbix_root:.'", txt_NombreArchivo.getText());
+            File nuevo = new File("/Users/Apple/NetBeansProjects/Lab9p2_salvador_macias", txt_NombreArchivo.getText());
             try {
                 nuevo.createNewFile();
                 jTextArea1.setText("archivo " + txt_NombreArchivo.getText() + " creado");
@@ -143,7 +144,7 @@ public class NelbixOs extends javax.swing.JFrame {
 
         } else if (txt_comandos.getText().contains("cat")) {
             String seleccionado = txt_NombreArchivo.getText();
-            File raiz = new File("'/Users/Apple/NetBeansProjects/Lab9p2_salvador_macias/nelbix_root:.'");
+            File raiz = new File("/Users/Apple/NetBeansProjects/Lab9p2_salvador_macias");
             File[] archivos = raiz.listFiles((dir, nombre) -> nombre.toLowerCase().endsWith(".txt"));
             /*for (File archivo : archivos) {
                 if (archivo.getName().equals(seleccionado)) {
@@ -188,7 +189,7 @@ public class NelbixOs extends javax.swing.JFrame {
         } else if (txt_comandos.getText().contains("echo")) {
 
             String seleccionado = txt_NombreArchivo.getText();
-            File raiz = new File("'/Users/Apple/NetBeansProjects/Lab9p2_salvador_macias/nelbix_root:.'");
+            File raiz = new File("/Users/Apple/NetBeansProjects/Lab9p2_salvador_macias");
             File[] archivos = raiz.listFiles((dir, nombre) -> nombre.toLowerCase().endsWith(".txt"));
             for (File archivo : archivos) {
                 if (archivo.getName().equals(seleccionado)) {
@@ -220,7 +221,7 @@ public class NelbixOs extends javax.swing.JFrame {
 
         } else if (txt_comandos.getText().contains(">>>")) {
             String seleccionado = txt_NombreArchivo.getText();
-            File raiz = new File("'/Users/Apple/NetBeansProjects/Lab9p2_salvador_macias/nelbix_root:.'");
+            File raiz = new File("/Users/Apple/NetBeansProjects/Lab9p2_salvador_macias");
             File[] archivos = raiz.listFiles((dir, nombre) -> nombre.toLowerCase().endsWith(".txt"));
             for (File archivo : archivos) {
                 if (archivo.getName().equals(seleccionado)) {
@@ -251,14 +252,15 @@ public class NelbixOs extends javax.swing.JFrame {
             }
 
         } else if (txt_comandos.getText().equals("rm")) {
+            System.out.println("e");
             String seleccionado = txt_NombreArchivo.getText();
-            File raiz = new File("'/Users/Apple/NetBeansProjects/Lab9p2_salvador_macias/nelbix_root:.'");
+            File raiz = new File("/Users/Apple/NetBeansProjects/Lab9p2_salvador_macias");
             File[] archivos = raiz.listFiles((dir, nombre) -> nombre.toLowerCase().endsWith(".txt"));
             for (File archivo : archivos) {
                 if (archivo.getName().equals(seleccionado)) {
                     archivo.delete();
                     jTextArea1.setText("archivo eliminado");
-                }else if(archivos.length==0&&archivos==null){
+                }else if(archivos.length==0){
                     jTextArea1.setText("no hay archivos para eliminar");
                 }
             }
