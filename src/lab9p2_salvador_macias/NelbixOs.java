@@ -47,6 +47,12 @@ public class NelbixOs extends javax.swing.JFrame {
         jla.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jla.setText("Comando: ");
 
+        txt_comandos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_comandosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -76,6 +82,16 @@ public class NelbixOs extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txt_comandosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_comandosActionPerformed
+        if (txt_comandos.getText().equals("clear")) {
+            jTextArea1.setText("");
+        }else if(txt_comandos.getText().equals("exit")){
+            System.exit(0);
+        }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_comandosActionPerformed
 
     /**
      * @param args the command line arguments
