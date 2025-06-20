@@ -188,6 +188,7 @@ public class NelbixOs extends javax.swing.JFrame {
                     try {
                         //jTextArea1.setText("");
                         
+                        br.flush();
                         br.write(""+ "\n" + txt_comandos.getText());
                     } catch (IOException ex) {
                         Logger.getLogger(NelbixOs.class.getName()).log(Level.SEVERE, null, ex);
