@@ -5,9 +5,11 @@
 package lab9p2_salvador_macias;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -185,22 +187,82 @@ public class NelbixOs extends javax.swing.JFrame {
             // jTextArea1.setText("auxilio");
         } else if (txt_comandos.getText().contains("echo")) {
 
-            jTextArea1.setText("texto sobrescrito");
             String seleccionado = txt_NombreArchivo.getText();
             File raiz = new File("'/Users/Apple/NetBeansProjects/Lab9p2_salvador_macias/nelbix_root:.'");
             File[] archivos = raiz.listFiles((dir, nombre) -> nombre.toLowerCase().endsWith(".txt"));
             for (File archivo : archivos) {
                 if (archivo.getName().equals(seleccionado)) {
+                    BufferedWriter br = null;
+                    try {
+                        br = new BufferedWriter(new FileWriter(seleccionado, true));
+                    } catch (IOException ex) {
+                        Logger.getLogger(NelbixOs.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    String nuevaInfo = jTextArea1.getText();
+                    try {
+                        br.write("\n");
+                    } catch (IOException ex) {
+                        Logger.getLogger(NelbixOs.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        br.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(NelbixOs.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                  
 
+                } else {
+                    jTextArea1.setText("el archivo no existe");
                 }
+                jTextArea1.setText("texto sobrescrito");
 
             }
 
         } else if (txt_comandos.getText().contains(">>>")) {
-            jTextArea1.setText("texto agregado");
+            String seleccionado = txt_NombreArchivo.getText();
+            File raiz = new File("'/Users/Apple/NetBeansProjects/Lab9p2_salvador_macias/nelbix_root:.'");
+            File[] archivos = raiz.listFiles((dir, nombre) -> nombre.toLowerCase().endsWith(".txt"));
+            for (File archivo : archivos) {
+                if (archivo.getName().equals(seleccionado)) {
+                    BufferedWriter br = null;
+                    try {
+                        br = new BufferedWriter(new FileWriter(seleccionado, true));
+                    } catch (IOException ex) {
+                        Logger.getLogger(NelbixOs.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    String nuevaInfo = jTextArea1.getText();
+                    try {
+                        br.write("\n" + nuevaInfo);
+                    } catch (IOException ex) {
+                        Logger.getLogger(NelbixOs.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        br.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(NelbixOs.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                  
+
+                } else {
+                    jTextArea1.setText("el archivo no existe");
+                }
+                jTextArea1.setText("texto agregado");
+
+            }
 
         } else if (txt_comandos.getText().equals("rm")) {
-            jTextArea1.setText("archivo eliminado");
+            String seleccionado = txt_NombreArchivo.getText();
+            File raiz = new File("'/Users/Apple/NetBeansProjects/Lab9p2_salvador_macias/nelbix_root:.'");
+            File[] archivos = raiz.listFiles((dir, nombre) -> nombre.toLowerCase().endsWith(".txt"));
+            for (File archivo : archivos) {
+                if (archivo.getName().equals(seleccionado)) {
+                    archivo.delete();
+                    jTextArea1.setText("archivo eliminado");
+                }else if(archivos.length==0&&archivos==null){
+                    jTextArea1.setText("no hay archivos para eliminar");
+                }
+            }
+
         } else if (txt_comandos.getText().equals("clear")) {
             jTextArea1.setText("");
 
